@@ -129,24 +129,6 @@
         .cake.bite-4 { clip-path: polygon(0% 0%, 25% 0%, 20% 15%, 30% 30%, 15% 45%, 25% 60%, 15% 75%, 25% 90%, 20% 100%, 0% 100%); }
         .cake.bite-5 { transform: scale(0.5); opacity: 0; pointer-events: none; }
 
-        .cake-glow {
-            position: absolute;
-            top:-3em; left:-3em; right:-3em; bottom:-3em;
-            border-radius: 40%;
-            pointer-events:none;
-            opacity:0;
-            transition:opacity 0.8s ease;
-            box-shadow:0 0 40px 20px rgba(255,215,0,0.5);
-            z-index:1;
-        }
-        .cake-glow.active {
-            opacity:1;
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0%,100% { box-shadow:0 0 40px 20px rgba(255,215,0,0.3); }
-            50% { box-shadow:0 0 60px 35px rgba(255,215,0,0.6); }
-        }
         .candle-container {
             position: absolute;
             width:100%;
@@ -328,7 +310,6 @@
                 <div class="single-candle c-right3" data-index="6" title="Kliko për të fikur! 🕯️"></div>
             </div>
             <div class="cake" id="theCake"></div>
-            <div class="cake-glow" id="cakeGlow"></div>
         </div>
 
         <div id="actionText" class="action-text"></div>
@@ -356,7 +337,6 @@
             const blowSound = document.getElementById('blowSound');
             const musicToggle = document.getElementById('musicToggle');
             const wishMsg = document.getElementById('wishMessage');
-            const cakeGlow = document.getElementById('cakeGlow');
             const actionText = document.getElementById('actionText');
             const candles = document.querySelectorAll('.single-candle');
 
@@ -367,11 +347,9 @@
             let canEatCake = false;
             let cakeBites = 0;
 
-            // FUNKSIONI PËR EFEKTIN SPEKTAKOLAR KUR PLAS DHURATA
             function massiveBurst() {
                 const colors = ['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ff5733','#ffeb3b','#e91e63','#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff6bff','#ffaa33','#ff66ff'];
                 
-                // Konfeti të rrumbullakëta dhe me forma yjesh
                 for (let i = 0; i < 400; i++) {
                     let el = document.createElement('div');
                     el.className = 'burst-confetti';
@@ -393,7 +371,6 @@
                     setTimeout(() => { if(el.parentNode) el.remove(); }, (duration + 1.5) * 1000);
                 }
                 
-                // Konfeti si letra
                 for (let i = 0; i < 200; i++) {
                     let paper = document.createElement("div");
                     paper.className = "burst-confetti";
@@ -435,7 +412,6 @@
                     isMusicPlaying = true;
                     musicToggle.textContent = '🔇 Muzika';
 
-                    // EFEKTI SPEKTAKOLAR VETËM KUR PLAS DHURATA
                     massiveBurst();
 
                     popSound.currentTime = 0;
@@ -483,7 +459,6 @@
                             setTimeout(() => { candleContainer.style.display = 'none'; }, 500);
 
                             wishMsg.classList.add('slide-in');
-                            cakeGlow.classList.add('active');
                             burstConfetti(60);
                             
                             actionText.textContent = 'Shtyp tortën për ta ngrënë! 🍰';
@@ -528,7 +503,6 @@
                 }
             });
 
-            // Pak konfeti dekorative në sfond (vetëm 10 copë)
             const colorsBg = ['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ffeb3b','#e91e63','#ff6b6b','#4d96ff'];
             for (let i=0; i<10; i++) {
                 let el = document.createElement('div');
